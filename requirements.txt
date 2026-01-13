@@ -1,0 +1,6 @@
+scapy>=2.4
+ipaddress; python_version < '3.0'
+future; python_version < '3.0'
+
+twisted
+netifaces
