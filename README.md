@@ -1,18 +1,16 @@
 # Kerberos Authentication Relay - CNAME Abuse Technique
 
-**CVE**: [CVE-2026-20929]()  
-
 A modified version of [mitm6](https://github.com/dirkjanm/mitm6) designed to support the Kerberos CNAME relay technique.
 
 ## Background
 
-This tool is the proof-of-concept for **CVE-2026-20929**, discovered by Ben Zamir.
+This tool is the proof-of-concept for Kerberos CNAME Abuse Relay technique,.
 
-The research uncovered a vulnerability in Windows Kerberos client behavior: when a DNS CNAME record is returned, the client follows the alias and constructs the TGS request using the CNAME hostname as the SPN. This allows an attacker with DNS MITM position to coerce any domain user into requesting a Kerberos ticket for an attacker-chosen service—enabling on-demand, cross-protocol relay attacks against SMB, HTTP and other services where signing or Channel Binding is not enforced.
+The research uncovered a flaw in Windows Kerberos client behavior: when a DNS CNAME record is returned, the client follows the alias and constructs the TGS request using the CNAME hostname as the SPN. This allows an attacker with DNS MITM position to coerce any domain user into requesting a Kerberos ticket for an attacker-chosen service—enabling on-demand, cross-protocol relay attacks against SMB, HTTP and other services where signing or Channel Binding is not enforced.
 
 Unlike previous Kerberos relay techniques that were limited to machine accounts or required specific conditions (IPv6, LLMNR), this method works reliably against **user accounts** on default Windows configurations.
-
-For full technical details, exploitation walkthrough, and impact analysis, see the [blog post]().
+Microsoft mitigated the risk by applying a patch to enforce CBT on https and enable signing by default for affected protocols. The fix is traced as CVE-2026-20929
+For full technical details, exploitation walkthrough, and impact analysis, see the [blog post at Cymulate](https://cymulate.com/blog/kerberos-authentication-relay-via-cname-abuse/).
 
 ## Added CNAME Abuse Features
 
